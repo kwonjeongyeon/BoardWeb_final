@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<!-- Handlermapping, Controller, ViewResolver 클래스를 <context:component-scan> 엘리먼트로 대체 -->
+	<context:component-scan base-package="com.myspring.view"></context:component-scan>
 
 
-	<!-- HandlerMapping 등록 -->
-	<bean
+<!-- 	HandlerMapping 등록 
 		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="mappings">
 			<props>
@@ -20,17 +24,17 @@
 		</property>
 	</bean>
 	
-	<!-- ViewResolver 등록 -->
-	<!-- InternalResourceViewResolver을 설정하면 WEB-INF에 있는 JSP 파일을 View 화면으로 사용 가능 (직접적인 JSP 호출 차단) -->
+	ViewResolver 등록
+	InternalResourceViewResolver을 설정하면 WEB-INF에 있는 JSP 파일을 View 화면으로 사용 가능 (직접적인 JSP 호출 차단)
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 	<property name="prefix" value="/WEB-INF/board/"></property>
 	<property name="suffix" value=".jsp"></property>
 	</bean>
 	
-	<!-- ViewResolver를 적용했을 때, ModelAndView 객체에 저장되는 View 이름은 ViewResolver 설정을 고려하여 등록해야 함 -->
+	ViewResolver를 적용했을 때, ModelAndView 객체에 저장되는 View 이름은 ViewResolver 설정을 고려하여 등록해야 함
 	
 
-	<!-- Controller 등록 -->
+	Controller 등록
 	<bean id="login" class="com.myspring.view.user.LoginController"></bean>
 	<bean id="getBoardList"
 		class="com.myspring.view.board.GetBoardListController"></bean>
@@ -42,5 +46,6 @@
 		class="com.myspring.view.board.UpdateBoardController"></bean>
 	<bean id="deleteBoard"
 		class="com.myspring.view.board.DeleteBoardController"></bean>
-	<bean id="logout" class="com.myspring.view.user.LogoutController"></bean>
+	<bean id="logout" class="com.myspring.view.user.LogoutController"></bean> -->
+	
 </beans>
