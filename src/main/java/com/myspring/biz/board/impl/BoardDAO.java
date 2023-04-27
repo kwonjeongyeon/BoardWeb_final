@@ -6,11 +6,13 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.myspring.biz.board.BoardVO;
 import com.myspring.biz.common.JDBCUtil;
 
 //DAO(Data Access Object)
-//@Repository("boardDAO")
+@Repository("boardDAO")
 public class BoardDAO {
 
 	// @Component는 스프링에서 관리되는 객체임을 표시하기 위해 사용하는 가장 기본적인 annotation (dependency
@@ -31,6 +33,8 @@ public class BoardDAO {
 	private final String BOARD_DELETE = "delete board where seq=?";
 	private final String BOARD_GET = "select * from board where seq=?";
 	private final String BOARD_LIST = "select * from board order by seq desc";
+	private final String BOARD_LIST_T = "select * from board where title like '%'||?||'%' order by seq desc";
+	private final String BOARD_LIST_C = "select * from board where content like '%'||?||'%' order by seq desc";
 
 	// CRUD 기능의 메소드 구현 (create, read, update, delete)
 	// 글 등록
@@ -122,7 +126,14 @@ public class BoardDAO {
 		List<BoardVO> boardList = new ArrayList<BoardVO>();
 		try {
 			conn = JDBCUtil.getConnection();
-			stmt = conn.prepareStatement(BOARD_LIST);
+			
+			if(vo.getSearchCondition().equals("TITLE")) {
+				stmt = conn.prepareStatement(BOARD_LIST_T);
+			} else if(vo.getSearchCondition().equals("CONTENT")) {
+				stmt = conn.prepareStatement(BOARD_LIST_C);
+			}
+			
+			stmt.setString(1, vo.getSearchKeyword());
 			rs = stmt.executeQuery();
 
 			while (rs.next()) {
