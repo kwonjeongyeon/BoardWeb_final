@@ -3,38 +3,24 @@ package com.myspring.view.board;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.Controller;
 
 import com.myspring.biz.board.BoardVO;
 import com.myspring.biz.board.impl.BoardDAO;
 
-public class UpdateBoardController implements Controller {
+@Controller
+public class UpdateBoardController {
 
-	@Override
-	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping("/updateBoard.do")
+	public String updateBoard(BoardVO vo, BoardDAO boardDAO) { 
+		//수정에 필요한 데이터는 매개변수로 선언된 BoardVO 객체를 통해 받아냄
 		System.out.println("글 수정 처리");
 
-		// 1. 사용자 입력 정보 추출
-		// request.setCharacterEncoding("UTF-8");
-		String title = request.getParameter("title");
-		String content = request.getParameter("content");
-		String seq = request.getParameter("seq");
-
-		// 2. DB 연동 처리
-		BoardVO vo = new BoardVO();
-		vo.setTitle(title);
-		vo.setContent(content);
-		vo.setSeq(Integer.parseInt(seq));
-
-		BoardDAO boardDAO = new BoardDAO();
 		boardDAO.updateBoard(vo);
 
-		// 3. 화면 네비게이션
-		ModelAndView mav = new ModelAndView();
-//		mav.setViewName("getBoardList.do");
-		mav.setViewName("redirect:getBoardList.do");
-		return mav;
+		return "getBoardList.do";
 
 	}
 

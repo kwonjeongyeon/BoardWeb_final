@@ -11,15 +11,22 @@ import com.myspring.biz.board.BoardVO;
 import com.myspring.biz.board.impl.BoardDAO;
 
 @Controller
-public class InsertBoardController{
+public class InsertBoardController {
 
 //	@Override
 //	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) {
-	
+
 	@RequestMapping(value = "/insertBoard.do")
-	public void insertBoard(BoardVO vo) {
-		
-//	public void insertBoard(HttpServletRequest request) {
+	public String insertBoard(BoardVO vo, BoardDAO boardDAO) {
+														//사용자 입력값을 Command 객체로 받기 위해 BoardVO 클래스를 매개변수로 선언
+														// DB 연동 처리를 위해 BoardDAO도 매개변수로 선언
+														// Command 객체는 Controller 메소드 매개변수로 받은 VO(Value Object) 객체라고 보면된다.
+														// InsertBoardController클래스의 insertBoard() 메소드를 Command 객체를 이용하여 구현
+																	
+
+//		public void insertBoard(BoardVO vo) {
+
+//		public void insertBoard(HttpServletRequest request) {
 		System.out.println("글 등록 처리");
 
 //		// 1. 사용자 입력 정보 추출
@@ -34,8 +41,10 @@ public class InsertBoardController{
 //		vo.setWriter(writer);
 //		vo.setContent(content);
 
-		BoardDAO boardDAO = new BoardDAO();
+//		BoardDAO boardDAO = new BoardDAO();
 		boardDAO.insertBoard(vo);
+//		return "getBoardList.do";
+		return "redirect:getBoardList.do";
 
 //		// 3. 화면 네비게이션
 //		ModelAndView mav = new ModelAndView();
