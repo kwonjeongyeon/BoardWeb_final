@@ -1,6 +1,10 @@
-package com.myspring.biz.board;
+      package com.myspring.biz.board;
 
 import java.sql.Date;
+
+import org.springframework.web.multipart.MultipartFile;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 //VO(Value Object)
 public class BoardVO {
@@ -12,6 +16,18 @@ public class BoardVO {
 	private int cnt;
 	private String searchCondition;
 	private String searchKeyword;
+	private MultipartFile uploadFile;
+	
+	//@JsonIgnore은 자바객체를 JSON으로 변환할 때, 특정 변수를 변환에서 제외시킴, 변수 위에 설정하지 않고 Getter 메소드 위에 설정
+	
+	@JsonIgnore
+	public MultipartFile getUploadFile() {
+		return uploadFile;
+	}
+
+	public void setUploadFile(MultipartFile uploadFile) {
+		this.uploadFile = uploadFile;
+	}
 
 	public int getSeq() {
 		return seq;
@@ -68,6 +84,7 @@ public class BoardVO {
 				+ regDate + ", cnt=" + cnt + "]";
 	}
 
+	@JsonIgnore
 	public String getSearchCondition() {
 		return searchCondition;
 	}
@@ -76,6 +93,7 @@ public class BoardVO {
 		this.searchCondition = searchCondition;
 	}
 
+	@JsonIgnore
 	public String getSearchKeyword() {
 		return searchKeyword;
 	}
