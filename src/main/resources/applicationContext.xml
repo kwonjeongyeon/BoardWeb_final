@@ -57,6 +57,23 @@
 			pointcut-ref="txPointcut" />
 	</aop:config>
 
+<!-- 	<bean id="sessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configLocation"
+			ref="classpath:sql-map-config.xml"></property>
+	</bean> -->
 
+	<!-- Spring과 Mybatis 연동 설정 -->
+	<bean id="sqlSession"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation"
+			value="classpath:sql-map-config.xml"></property>
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+
+	<bean class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSession"></constructor-arg>
+	</bean>
 
 </beans>

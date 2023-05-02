@@ -14,7 +14,9 @@ import com.myspring.biz.board.BoardVO;
 public class BoardServiceImpl implements BoardService {
 
 	@Autowired
-	private BoardDAO boardDAO;       
+	private BoardDAOMybatis boardDAO;
+	
+//	private BoardDAO boardDAO;       
 //	private BoardDAOSpring boardDAO;
 	// 데이터베이스 연동이 포함된 비즈니스 로직 처리를 위해 BoardDAO 타입 객체를 멤버변수로 가지고 있음.
 	// private LogAdvice log;
